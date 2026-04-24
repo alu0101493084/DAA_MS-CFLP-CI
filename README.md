@@ -8,7 +8,7 @@ A minimal Java CLI application scaffold for a university project.
 
 | Tool | Recommended version |
 |------|---------------------|
-| JDK  | 21 (LTS) — [Eclipse Temurin](https://adoptium.net/) |
+| JDK  | 17+ (21 LTS recommended) — [Eclipse Temurin](https://adoptium.net/) |
 | Maven | 3.9+ |
 
 ```bash
