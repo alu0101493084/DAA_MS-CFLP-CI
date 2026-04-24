@@ -1,0 +1,34 @@
+# ---- Build output ----
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ---- Maven ----
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# ---- IntelliJ IDEA ----
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ---- VS Code ----
+.vscode/
+.classpath
+.project
+.settings/
+
+# ---- Eclipse ----
+bin/
+*.launch
+*.prefs
+.metadata/
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
