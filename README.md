@@ -1,6 +1,6 @@
 # DAA MS-CFLP-CI
 
-A minimal Java CLI application scaffold for a university project.
+Java implementation of constructive and local-search heuristics for the Multi-Source Capacitated Facility Location Problem with Customer Incompatibilities (MS-CFLP-CI).
 
 ---
 
@@ -25,9 +25,15 @@ mvn  -version   # should print 3.9.x
 ├── pom.xml                          # Maven build descriptor
 ├── src/
 │   ├── main/java/com/example/
-│   │   └── Main.java                # CLI entry point
+│   │   ├── Main.java                # CLI entry point
+│   │   ├── MsCflpCiSolver.java      # Constructive + local-search workflow
+│   │   ├── ConstructiveSolver.java  # Greedy constructive heuristic
+│   │   ├── LocalSearchSolver.java   # Relocate-based local search
+│   │   ├── SolutionValidator.java   # Capacity/incompatibility checks
+│   │   └── InstanceParser.java      # Instance parser
 │   └── test/java/com/example/
-│       └── MainTest.java            # JUnit 5 unit tests
+│       ├── MainTest.java            # CLI tests
+│       └── SolverFeasibilityTest.java
 └── .github/workflows/ci.yml         # GitHub Actions CI
 ```
 
@@ -46,24 +52,55 @@ The runnable jar is created at `target/daa-ms-cflp-ci-1.0-SNAPSHOT.jar`.
 ## Run
 
 ```bash
-java -jar target/daa-ms-cflp-ci-1.0-SNAPSHOT.jar --help
-java -jar target/daa-ms-cflp-ci-1.0-SNAPSHOT.jar greet Alice
+mvn exec:java
+mvn exec:java -Dexec.args="--help"
+mvn exec:java -Dexec.args="demo"
+mvn exec:java -Dexec.args="solve instances/sample.txt"
 ```
 
 ### Example output
 
 ```
-$ java -jar target/daa-ms-cflp-ci-1.0-SNAPSHOT.jar greet Alice
-Hello, Alice!
+% mvn exec:java -Dexec.args="demo"
+Feasible: true
+Cost: 22.000
+Assignment: C0->F0 C1->F1 C2->F1 C3->F0
 
-$ java -jar target/daa-ms-cflp-ci-1.0-SNAPSHOT.jar --help
+% mvn exec:java -Dexec.args="--help"
 Usage:
   java -jar app.jar <command> [args]
 
 Commands:
-  greet <name>   Print a greeting for the given name
-  --help         Show this help message
+  solve <instance-file>   Solve one MS-CFLP-CI instance
+  demo                    Run a built-in demo instance
+  greet <name>            Print a greeting
+  --help                  Show this help message
 ...
+```
+
+## Instance format
+
+The parser expects whitespace-separated tokens in this order:
+
+1) Number of facilities `F` and customers `C`
+2) `F` capacities
+3) `F` fixed opening costs
+4) `C` customer demands
+5) `F * C` service costs, row-wise by facility
+6) Number of incompatibility pairs `K`
+7) `K` lines with customer indices `i j` (0-based)
+
+Example:
+
+```text
+2 4
+8 7
+8 7
+3 3 2 2
+2 2.5 3 4
+3 2 2 2.5
+1
+0 1
 ```
 
 ---

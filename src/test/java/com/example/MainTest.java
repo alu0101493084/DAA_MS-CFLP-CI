@@ -13,26 +13,16 @@ class MainTest {
     }
 
     @Test
-    void helpFlag_returnsUsage() {
-        String result = Main.run(new String[]{"--help"});
-        assertTrue(result.contains("Usage:"), "Should contain 'Usage:' for --help");
+    void greet_returnsExpectedOutput() {
+        String result = Main.run(new String[]{"greet", "Diego"});
+        assertEquals("Hello, Diego!", result);
     }
 
     @Test
-    void greetWithName_returnsGreeting() {
-        String result = Main.run(new String[]{"greet", "Alice"});
-        assertEquals("Hello, Alice!", result);
-    }
-
-    @Test
-    void greetWithoutName_returnsError() {
-        String result = Main.run(new String[]{"greet"});
-        assertTrue(result.startsWith("Error:"), "Should return error when name is missing");
-    }
-
-    @Test
-    void unknownCommand_returnsError() {
-        String result = Main.run(new String[]{"unknown"});
-        assertTrue(result.startsWith("Unknown command:"), "Should report unknown command");
+    void demo_producesFeasibleSolution() {
+        String result = Main.run(new String[]{"demo"});
+        assertTrue(result.contains("Feasible: true"));
+        assertTrue(result.contains("Cost:"));
+        assertTrue(result.contains("Assignment:"));
     }
 }

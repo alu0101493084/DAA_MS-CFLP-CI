@@ -34,6 +34,15 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
       </plugin>
+      <!-- Run the application directly from Maven -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <mainClass>com.example.Main</mainClass>
+        </configuration>
+      </plugin>
       <!-- Build a runnable fat-jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
